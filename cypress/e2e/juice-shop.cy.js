@@ -108,16 +108,38 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Search 500ml and validate cards
-    // Click on search icon
-    // Search for 500ml
-    // Select a product card - Eggfruit Juice (500ml)
-    // Validate that the card (should) contains "Now with even more exotic flavour."
-    // Close the card
-    // Select a product card - Lemon Juice (500ml)
-    // Validate that the card (should) contains "Sour but full of vitamins."
-    // Close the card
-    // Select a product card - Strawberry Juice (500ml)
-    // Validate that the card (should) contains "Sweet & tasty!"
+    it.only("Search 500ml and validate cards", () => {
+      // Click on search icon
+      HomePage.searchButton.click();
+      // Search for 500ml
+      HomePage.searchField.type("500ml");
+      HomePage.searchField.type("{Enter}");
+      // Select a product card - Eggfruit Juice (500ml)
+      HomePage.searchResultCard.contains("Eggfruit Juice (500ml)").click();
+      // Validate that the card (should) contains "Now with even more exotic flavour."
+      HomePage.productCardContent.should(
+        'contains.text',
+        "Now with even more exotic flavour."
+      );
+      // Close the card
+      HomePage.closeProductCard.click();
+      // Select a product card - Lemon Juice (500ml)
+      HomePage.searchResultCard.contains("Lemon Juice (500ml)").click();
+      // Validate that the card (should) contains "Sour but full of vitamins."
+      HomePage.productCardContent.should(
+        'contains.text',
+        "Sour but full of vitamins."
+      );
+      // Close the card
+      HomePage.closeProductCard.click();
+      // Select a product card - Strawberry Juice (500ml)
+      HomePage.searchResultCard.contains("Strawberry Juice (500ml)").click();
+      // Validate that the card (should) contains "Sweet & tasty!"
+      HomePage.productCardContent.should(
+        'contains.text',
+        "Sweet & tasty!"
+      );
+    });
 
     // Create scenario - Read a review
     // Click on search icon
