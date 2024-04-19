@@ -5,7 +5,6 @@ export class LoginPage extends BasePage {
     return "/#/login";
   }
 
-
   static get emailField() {
     return cy.get("#email");
   }
@@ -16,6 +15,10 @@ export class LoginPage extends BasePage {
 
   static get loginButton() {
     return cy.get("#loginButton");
+  }
+
+  static get registerButton() {
+    return cy.get("[routerlink='/register']");
   }
 
   static get elementName() {
