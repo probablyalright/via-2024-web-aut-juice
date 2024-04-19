@@ -8,6 +8,7 @@ import { OrderSummaryPage } from "../pageObjects/OrderSummaryPage";
 import { PaymentOptionsPage } from "../pageObjects/PaymentsOptionsPage";
 import { RegisterPage } from "../pageObjects/RegisterPage";
 import { SavedAddressesPage } from "../pageObjects/SavedAddressesPage";
+import { SavedPaymentMethodsPage } from "../pageObjects/SavedPaymenMethodsPage";
 import { SelectAddressPage } from "../pageObjects/SelectAddressPage";
 
 describe("Juice-shop scenarios", () => {
@@ -249,7 +250,7 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Add address
-    it.only("Add address", () => {
+    it("Add address", () => {
       // Click on Account
       HomePage.navbarAccountButton.click();
       // Click on Orders & Payment
@@ -277,16 +278,31 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Add payment option
-    // Click on Account
-    // Click on Orders & Payment
-    // Click on My payment options
-    // Create page object - SavedPaymentMethodsPage
-    // Click Add new card
-    // Fill in Name
-    // Fill in Card Number
-    // Set expiry month to 7
-    // Set expiry year to 2090
-    // Click Submit button
-    // Validate that the card shows up in the list
+    it("Add address", () => {
+      // Click on Account
+      HomePage.navbarAccountButton.click();
+      // Click on Orders & Payment
+      HomePage.navbarOrdersAndPayments.click();
+      // Click on My payment options
+      HomePage.navbarMyPaymentOptions.click();
+      // Create page object - SavedPaymentMethodsPage
+      // Click Add new card
+      SavedPaymentMethodsPage.addNewCardExpansion.click();
+      // Fill in Name
+      SavedPaymentMethodsPage.nameField.type('Joe');
+      // Fill in Card Number
+      SavedPaymentMethodsPage.cardNumberField.type('3445566778899001');
+      // Set expiry month to 7
+      SavedPaymentMethodsPage.expiryMonthSelection.select('7');
+      // Set expiry year to 2090
+      SavedPaymentMethodsPage.expiryYearSelection.select('2090');
+      // Click Submit button
+      SavedPaymentMethodsPage.submitButton.click();
+      // Validate that the card shows up in the list
+      SavedPaymentMethodsPage.savedPaymentsRows.should(
+        'contain.text',
+        "9001"
+      )
+    });
   });
 });

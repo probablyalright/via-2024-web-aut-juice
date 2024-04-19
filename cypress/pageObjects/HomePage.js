@@ -33,6 +33,10 @@ export class HomePage extends BasePage {
     return cy.get(".mat-menu-panel [aria-label='Go to saved address page']");
   }
 
+  static get navbarMyPaymentOptions() {
+    return cy.get(".mat-menu-panel [aria-label='Go to saved payment methods page']");
+  }
+
   static get searchButton() {
     return cy.get(".mat-search_icon-search");
   }
