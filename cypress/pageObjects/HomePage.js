@@ -49,7 +49,15 @@ export class HomePage extends BasePage {
     return cy.get("[aria-label='Expand for Reviews'] .mat-expansion-indicator");
   }
 
-  static get productReviewText() {
+  static get productReviewsText() {
     return cy.get(".review-text");
+  }
+
+  static get productReviewInputField() {
+    return cy.get("[aria-label='Text field to review a product']");
+  }
+
+  static get productReviewSubmitButton() {
+    return cy.get("#submitButton");
   }
 }

@@ -142,7 +142,7 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Read a review
-    it.only("Read a review", () => {
+    it("Read a review", () => {
       // Click on search icon
       HomePage.searchButton.click();
       // Search for King
@@ -154,20 +154,35 @@ describe("Juice-shop scenarios", () => {
       cy.wait(500)
       HomePage.expandProductCardReviews.click();
       // Validate review - K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!
-      HomePage.productReviewText.should(
+      HomePage.productReviewsText.should(
         'contain.text',
         "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!"
       );
     });
 
     // Create scenario - Add a review
-    // Click on search icon
-    // Search for Raspberry
-    // Select a product card - Raspberry Juice (1000ml)
-    // Type in review - "Tastes like metal"
-    // Click Submit
-    // Click expand reviews button/icon (wait for reviews to appear)
-    // Validate review -  "Tastes like metal"
+    it.only("Read a review", () => {
+      // Click on search icon
+      HomePage.searchButton.click();
+      // Search for Raspberry
+      HomePage.searchField.type("Raspberry");
+      HomePage.searchField.type("{Enter}");
+      // Select a product card - Raspberry Juice (1000ml)
+      HomePage.searchResultCard.contains("Raspberry Juice (1000ml)").click();
+      // Type in review - "Tastes like metal"
+      cy.wait(200); // <---- Without this Cypress would only type 'Tast'
+      HomePage.productReviewInputField.type("Tastes like metal");
+      // Click Submit
+      HomePage.productReviewSubmitButton.click();
+      // Click expand reviews button/icon (wait for reviews to appear)
+      cy.wait(500);
+      HomePage.expandProductCardReviews.click();
+      // Validate review -  "Tastes like metal"
+      HomePage.productReviewsText.should(
+        'contain.text',
+        "Tastes like metal"
+      );
+    });
 
     // Create scenario - Validate product card amount
     // Validate that the default amount of cards is 12
