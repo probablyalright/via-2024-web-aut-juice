@@ -45,5 +45,11 @@ export class HomePage extends BasePage {
     return cy.get(".close-dialog");
   }
 
+  static get expandProductCardReviews() {
+    return cy.get("[aria-label='Expand for Reviews'] .mat-expansion-indicator");
+  }
 
+  static get productReviewText() {
+    return cy.get(".review-text");
+  }
 }
