@@ -26,7 +26,7 @@ export class RegisterPage extends BasePage {
         return cy.get("[name='securityQuestion']");
     }
     
-    static get securityQuestions() {
+    static get securityQuestionsSelection() {
         return cy.get(".mat-option-text");
     }
 

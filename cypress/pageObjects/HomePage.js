@@ -60,4 +60,20 @@ export class HomePage extends BasePage {
   static get productReviewSubmitButton() {
     return cy.get("#submitButton");
   }
+
+  static get displayedCardCount() {
+    return cy.get(".mat-select-min-line");
+  }
+
+  static get actualDisplayedCardLabel() {
+    return cy.get(".mat-paginator-range-label");
+  }
+
+  static get cardCountOptions() {
+    return cy.get(".mat-option-text");
+  }
+
+  static get foo() {
+    return cy.get(".var");
+  }
 }
