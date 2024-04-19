@@ -1,6 +1,12 @@
+import { BasketPage } from "../pageObjects/BasketPage";
+import { DeliveryMethodPage } from "../pageObjects/DeliveryMethodPage";
 import { HomePage } from "../pageObjects/HomePage";
 import { LoginPage } from "../pageObjects/LoginPage";
+import { OrderCompletionPage } from "../pageObjects/OrderCompletionPage";
+import { OrderSummaryPage } from "../pageObjects/OrderSummaryPage";
+import { PaymentOptionsPage } from "../pageObjects/PaymentsOptionsPage";
 import { RegisterPage } from "../pageObjects/RegisterPage";
+import { SelectAddressPage } from "../pageObjects/SelectAddressPage";
 
 describe("Juice-shop scenarios", () => {
   context("Without auto login", () => {
@@ -25,7 +31,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.navbarAccountButton.click();
       // Validate that "demo" account name appears in the menu section  
       HomePage.navbarAccountUserName.should(
-        'contains.text',
+        'contain.text',
         'demo'
       );
     });
@@ -64,7 +70,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.navbarAccountButton.click();
       // Validate that account name (with previously created email address) appears in the menu section
       HomePage.navbarAccountUserName.should(
-        'contains.text',
+        'contain.text',
         email
       )
     });
@@ -86,7 +92,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.searchResultCard.contains("Lemon Juice (500ml)").click();
       // Validate that the card (should) contains "Sour but full of vitamins."
       HomePage.productCardContent.should(
-        'contains.text',
+        'contain.text',
         "Sour but full of vitamins."
       );
     });
@@ -102,7 +108,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.searchResultCard.contains("Lemon Juice (500ml)").click();
       // Validate that the card (should) contains "Sour but full of vitamins."
       HomePage.productCardContent.should(
-        'contains.text',
+        'contain.text',
         "Sour but full of vitamins."
       );
     });
@@ -118,7 +124,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.searchResultCard.contains("Eggfruit Juice (500ml)").click();
       // Validate that the card (should) contains "Now with even more exotic flavour."
       HomePage.productCardContent.should(
-        'contains.text',
+        'contain.text',
         "Now with even more exotic flavour."
       );
       // Close the card
@@ -127,7 +133,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.searchResultCard.contains("Lemon Juice (500ml)").click();
       // Validate that the card (should) contains "Sour but full of vitamins."
       HomePage.productCardContent.should(
-        'contains.text',
+        'contain.text',
         "Sour but full of vitamins."
       );
       // Close the card
@@ -136,7 +142,7 @@ describe("Juice-shop scenarios", () => {
       HomePage.searchResultCard.contains("Strawberry Juice (500ml)").click();
       // Validate that the card (should) contains "Sweet & tasty!"
       HomePage.productCardContent.should(
-        'contains.text',
+        'contain.text',
         "Sweet & tasty!"
       );
     });
@@ -185,7 +191,7 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Validate product card amount
-    it.only("Validate product card amount", () => {
+    it("Validate product card amount", () => {
       // Validate that the default amount of cards is 12
       HomePage.displayedCardCount.should(
         'have.text',
@@ -205,30 +211,49 @@ describe("Juice-shop scenarios", () => {
       // Validate that the amount of cards is 35
       HomePage.actualDisplayedCardLabel.should(
         'contain.text',
-        "35"
+        "of 35"
       );
     });
 
     // Create scenario - Buy Girlie T-shirt
-    // Click on search icon
-    // Search for Girlie
-    // Add to basket "Girlie"
-    // Click on "Your Basket" button
-    // Create page object - BasketPage
-    // Click on "Checkout" button
-    // Create page object - SelectAddressPage
-    // Select address containing "United Fakedom"
-    // Click Continue button
-    // Create page object - DeliveryMethodPage
-    // Select delivery speed Standard Delivery
-    // Click Continue button
-    // Create page object - PaymentOptionsPage
-    // Select card that ends with "5678"
-    // Click Continue button
-    // Create page object - OrderSummaryPage
-    // Click on "Place your order and pay"
-    // Create page object - OrderCompletionPage
-    // Validate confirmation - "Thank you for your purchase!"
+    it("Buy Girlie T-shirt", () => {
+      // Click on search icon
+      HomePage.searchButton.click();
+      // Search for Girlie
+      HomePage.searchField.type("Girlie");
+      HomePage.searchField.type("{Enter}");
+      // Add to basket "Girlie"
+      HomePage.addToBasketButton.click();
+      // Click on "Your Basket" button
+      HomePage.viewMyBasketButton.click();
+      // Create page object - BasketPage
+      // Click on "Checkout" button
+      BasketPage.checkoutButton.click();
+      // Create page object - SelectAddressPage
+      // Select address containing "United Fakedom"
+      SelectAddressPage.addressCells.contains('United Fakedom').click();
+      // Click Continue button
+      SelectAddressPage.continueButton.click();
+      // Create page object - DeliveryMethodPage
+      // Select delivery speed Standard Delivery
+      DeliveryMethodPage.deliveryMethodRow.contains('Standard Delivery').click();
+      // Click Continue button
+      DeliveryMethodPage.continueButton.click();
+      // Create page object - PaymentOptionsPage
+      // Select card that ends with "5678"
+      PaymentOptionsPage.selectPaymentBasedOnOption('5678').click();
+      // Click Continue button
+      PaymentOptionsPage.continueButton.click();
+      // Create page object - OrderSummaryPage
+      // Click on "Place your order and pay"
+      OrderSummaryPage.placeOrderButton.click();
+      // Create page object - OrderCompletionPage
+      // Validate confirmation - "Thank you for your purchase!"
+      OrderCompletionPage.confirmationMessage.should(
+        'have.text',
+        'Thank you for your purchase!'
+      );
+    });
 
     // Create scenario - Add address
     // Click on Account
