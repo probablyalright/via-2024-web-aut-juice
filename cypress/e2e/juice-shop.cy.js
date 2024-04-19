@@ -30,7 +30,7 @@ describe("Juice-shop scenarios", () => {
       );
     });
 
-    it.only("Registration", () => {
+    it("Registration", () => {
       // Click Account button
       HomePage.navbarAccountButton.click();
       // Login button
@@ -49,7 +49,7 @@ describe("Juice-shop scenarios", () => {
       // Click on Security Question menu
       RegisterPage.securityQuestionField.click();
       // Select  "Name of your favorite pet?"
-      RegisterPage.securityQuestions.contains("Name of your favorite pet?").click();
+      RegisterPage.securityQuestionsSelection.contains("Name of your favorite pet?").click();
       // Fill in answer
       RegisterPage.securityAnswerField.type("Meow");
       // Click Register button
@@ -78,9 +78,17 @@ describe("Juice-shop scenarios", () => {
 
     it("Search and validate Lemon", () => {
       // Click on search icon
+      HomePage.searchButton.click();
       // Search for Lemon
+      HomePage.searchField.type("Lemon");
+      HomePage.searchField.type("{Enter}");
       // Select a product card - Lemon Juice (500ml)
+      HomePage.searchResultCard.contains("Lemon Juice (500ml)").click();
       // Validate that the card (should) contains "Sour but full of vitamins."
+      HomePage.productCardContent.should(
+        'contains.text',
+        "Sour but full of vitamins."
+      );
     });
 
     // Create scenario - Search 500ml and validate Lemon, while having multiple cards

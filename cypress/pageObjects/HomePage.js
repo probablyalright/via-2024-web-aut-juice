@@ -24,4 +24,26 @@ export class HomePage extends BasePage {
   static get navbarAccountUserName() {
     return cy.get("[aria-label='Go to user profile']");
   }
+
+  static get searchButton() {
+    return cy.get(".mat-search_icon-search");
+  }
+
+  static get searchField() {
+    return cy.get(".mat-search_field");
+  }
+
+  static get searchResultCard() {
+    return cy.get(".item-name");
+  }
+
+  static get productCardContent() {
+    return cy.get(".mat-dialog-content");
+  }
+
+  static get closeProductCard() {
+    return cy.get(".close-dialog");
+  }
+
+
 }
