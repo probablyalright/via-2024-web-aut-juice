@@ -1,4 +1,5 @@
 import { BasketPage } from "../pageObjects/BasketPage";
+import { CreateAddressPage } from "../pageObjects/CreateAddressPage";
 import { DeliveryMethodPage } from "../pageObjects/DeliveryMethodPage";
 import { HomePage } from "../pageObjects/HomePage";
 import { LoginPage } from "../pageObjects/LoginPage";
@@ -6,6 +7,7 @@ import { OrderCompletionPage } from "../pageObjects/OrderCompletionPage";
 import { OrderSummaryPage } from "../pageObjects/OrderSummaryPage";
 import { PaymentOptionsPage } from "../pageObjects/PaymentsOptionsPage";
 import { RegisterPage } from "../pageObjects/RegisterPage";
+import { SavedAddressesPage } from "../pageObjects/SavedAddressesPage";
 import { SelectAddressPage } from "../pageObjects/SelectAddressPage";
 
 describe("Juice-shop scenarios", () => {
@@ -193,26 +195,17 @@ describe("Juice-shop scenarios", () => {
     // Create scenario - Validate product card amount
     it("Validate product card amount", () => {
       // Validate that the default amount of cards is 12
-      HomePage.displayedCardCount.should(
-        'have.text',
-        "12"
-      );
+      HomePage.allDisplayedCards.should('have.length', 12);
       // Change items per page (at the bottom of page) to 24
       HomePage.displayedCardCount.click();
       HomePage.cardCountOptions.contains('24').click();
       // Validate that the amount of cards is 24
-      HomePage.displayedCardCount.should(
-        'have.text',
-        "24"
-      );
+      HomePage.allDisplayedCards.should('have.length', 24);
       // Change items per page (at the bottom of page) to 36
       HomePage.displayedCardCount.click();
       HomePage.cardCountOptions.contains('36').click();
       // Validate that the amount of cards is 35
-      HomePage.actualDisplayedCardLabel.should(
-        'contain.text',
-        "of 35"
-      );
+      HomePage.allDisplayedCards.should('have.length', 35);
     });
 
     // Create scenario - Buy Girlie T-shirt
@@ -256,15 +249,32 @@ describe("Juice-shop scenarios", () => {
     });
 
     // Create scenario - Add address
-    // Click on Account
-    // Click on Orders & Payment
-    // Click on My saved addresses
-    // Create page object - SavedAddressesPage
-    // Click on Add New Address
-    // Create page object - CreateAddressPage
-    // Fill in the necessary information
-    // Click Submit button
-    // Validate that previously added address is visible
+    it.only("Add address", () => {
+      // Click on Account
+      HomePage.navbarAccountButton.click();
+      // Click on Orders & Payment
+      HomePage.navbarOrdersAndPayments.click();
+      // Click on My saved addresses
+      HomePage.navbarSavedAddresses.click();
+      // Create page object - SavedAddressesPage
+      // Click on Add New Address
+      SavedAddressesPage.addNewAddressButton.click();
+      // Create page object - CreateAddressPage
+      // Fill in the necessary information
+      CreateAddressPage.countryField.type("Lettland");
+      CreateAddressPage.nameField.type("Joe");
+      CreateAddressPage.mobilenumberField.type("28282822");
+      CreateAddressPage.zipcodeField.type("4444");
+      CreateAddressPage.addressField.type("Riga street 11");
+      CreateAddressPage.cityField.type("Berlin");
+      // Click Submit button
+      CreateAddressPage.submitButton.click();
+      // Validate that previously added address is visible
+      CreateAddressPage.savedAddressesRows.should(
+        'contain.text',
+        'Riga street 11, Berlin, , 4444'
+      );
+    });
 
     // Create scenario - Add payment option
     // Click on Account

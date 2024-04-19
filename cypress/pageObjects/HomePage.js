@@ -25,6 +25,14 @@ export class HomePage extends BasePage {
     return cy.get("[aria-label='Go to user profile']");
   }
 
+  static get navbarOrdersAndPayments() {
+    return cy.get(".mat-menu-panel [aria-label='Show Orders and Payment Menu']");
+  }
+
+  static get navbarSavedAddresses() {
+    return cy.get(".mat-menu-panel [aria-label='Go to saved address page']");
+  }
+
   static get searchButton() {
     return cy.get(".mat-search_icon-search");
   }
@@ -63,6 +71,10 @@ export class HomePage extends BasePage {
 
   static get displayedCardCount() {
     return cy.get(".mat-select-min-line");
+  }
+
+  static get allDisplayedCards() {
+    return cy.get(".mat-grid-tile");
   }
 
   static get actualDisplayedCardLabel() {
